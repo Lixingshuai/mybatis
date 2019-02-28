@@ -27,7 +27,10 @@
    
    <!-- 配置Mapper路径 -->
     <mappers>
-    	<mapper resource="com/mybatis/mapper/CountryMapper.xml"/>
+    	<!-- <mapper resource="com/mybatis/mapper/CountryMapper.xml"/> -->
+    	<!-- 省去文件名，直接扫描整个包下的mapper.xml文件 -->
+    	<!-- <mapper resource="com/mybatis/mapper"/> -->
+    	<package name="com/mybatis/mapper"/>
     </mappers>
     
 </configuration>
