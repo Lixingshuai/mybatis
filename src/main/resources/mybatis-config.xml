@@ -5,6 +5,8 @@
 	<!-- 全局设置，设置logImpl的属性指定使用LOG4J日志 -->
 	<settings>
 		<setting name="logImpl" value="LOG4J"/>
+		<!--  -->
+		<!-- <setting name="mapUnderscoreToCase" value="true"/> -->
 	</settings>
 	<!-- 配置一个包的别名 -->
 	 <typeAliases>
@@ -24,7 +26,7 @@
             </dataSource>
         </environment>
     </environments>
-   
+    
    <!-- 配置Mapper路径 -->
     <mappers>
     	<!-- <mapper resource="com/mybatis/mapper/CountryMapper.xml"/> -->
