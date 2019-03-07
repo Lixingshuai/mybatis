@@ -1,6 +1,7 @@
 package com.mybatis.mapper;
 
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -63,22 +64,22 @@ public class UserMapperTest {
 		}
 	}
 
-	@Test
-	public void test3() {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-//			SysUser user = userMapper.selectById(1);
-			List<SysRole> roles = userMapper.selectRolesByUserId(1);
-			for (SysRole user : roles) {
-				System.out.println(user.getUser().getUserEmail());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			sqlSession.close();
-		}
-	}
+//	@Test
+//	public void test3() {
+//		SqlSession sqlSession = sqlSessionFactory.openSession();
+//		try {
+//			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+////			SysUser user = userMapper.selectById(1);
+//			List<SysRole> roles = userMapper.selectRolesByUserId(1);
+//			for (SysRole user : roles) {
+//				System.out.println(user.getUser().getUserEmail());
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			sqlSession.close();
+//		}
+//	}
 
 	@Test
 	public void insert() {
@@ -153,13 +154,64 @@ public class UserMapperTest {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
-			SysRole result = roleMapper.selectRoleById2(1);
-			System.out.println(result);
+
+			System.out.println(roleMapper.selectRoleById(1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-//			sqlSession.rollback();
+			sqlSession.commit();
 			sqlSession.close();
 		}
 	}
+
+	@Test
+	public void selectByUser() {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+			SysUser user = new SysUser();
+			user.setUserName("'admin");
+			System.out.println(mapper.selectByUser(user));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.commit();
+			sqlSession.close();
+		}
+	}
+
+	@Test
+	public void updateByUser() {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+			SysUser user = new SysUser();
+			user.setId(1);
+			user.setUserName("admin1");
+			System.out.println(mapper.updateByUser(user));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.rollback();
+			sqlSession.close();
+		}
+	}
+
+	@Test
+	public void selectByIdList() {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+			List<Integer> list = new ArrayList<Integer>();
+			list.add(1);
+			list.add(1001);
+			System.out.println(mapper.selectByIdList(list).size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.rollback();
+			sqlSession.close();
+		}
+	}
+
 }

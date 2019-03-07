@@ -22,4 +22,10 @@ public interface UserMapper {
 
 	List<SysRole> selectRolesByUserIdAndEnabled(@Param("userId") int userId, @Param("enabled") int enabled);
 
+	List<SysUser> selectByUser(SysUser user);
+
+	int updateByUser(SysUser user);
+
+	List<SysUser> selectByIdList(List<Integer> idList);
+
 }
